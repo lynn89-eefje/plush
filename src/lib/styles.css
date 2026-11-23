@@ -1,9 +1,22 @@
+::root {
+    --blue: rgb(178, 220, 237);
+}
+
 * {
     color: white;
 }
 h1 {
-    font-family: Cal Sans;
+    font-family: Cal Sans, Montserrat;
 }
 h2 {
-    font-family: Montserrat, Host Grotesk;
+    span {
+        font-family: Playwrite DK Loopet, Montserrat;
+    }
+}
+p {
+    font-family: Host Grotesk, Montserrat;
+}
+
+::selection {
+    background-color: rgba(162, 127, 0, 0.492);
 }
