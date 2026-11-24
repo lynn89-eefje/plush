@@ -1,5 +1,6 @@
 ::root {
     --blue: rgb(178, 220, 237);
+    --yellow: rgb(237, 233, 178);
 }
 
 * {
@@ -9,6 +10,7 @@ h1 {
     font-family: Cal Sans, Montserrat;
 }
 h2 {
+    font-family: Host Grotesk;
     span {
         font-family: Playwrite DK Loopet, Montserrat;
     }
