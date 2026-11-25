@@ -9,11 +9,14 @@
 h1 {
     font-family: Cal Sans, Montserrat;
 }
-h2 {
-    font-family: Host Grotesk;
+h2, #desc {
+    font-family: Cal Sans, Host Grotesk;
     span {
         font-family: Playwrite DK Loopet, Montserrat;
     }
+}
+h3 {
+    font-family: Host Grotesk, Cal Sans;
 }
 p {
     font-family: Host Grotesk, Montserrat;

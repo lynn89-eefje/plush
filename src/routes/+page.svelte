@@ -20,7 +20,7 @@
         "koala_lamp",
         "blavingad_sweatshirt",
         "orangutan_ikea",
-        "aftonsparv_shirt",
+        "aftonsparv_sweatshirt",
         "whale_lamp"
     ];
 
@@ -161,6 +161,7 @@
         pointer-events: none;
         user-select: none;
         animation: heidiEyes 3.5s infinite ease-in-out;
+        animation-delay: 2500;
         -webkit-user-drag: none;
         user-select: none;
         -moz-user-select: none;
@@ -175,17 +176,16 @@
         pointer-events: none;
         user-select: none;
         animation: heidiEyes 6s infinite ease-in-out;
-        animation-delay: 2500;
         -webkit-user-drag: none;
         user-select: none;
         -moz-user-select: none;
     }
 
     @keyframes heidiEyes {
-        0%, 23%, 30%, 100% {
+        0%, 43%, 50%, 100% {
             opacity: 0;
         }
-        24%, 29% {
+        44%, 49% {
             opacity: 1;
         }
     }
@@ -195,6 +195,7 @@
         transform: translate(-50%, -50%);
         left: 50%;
         top: 0;
+        user-select: none;
     }
 
     @keyframes pulseShape {
@@ -298,7 +299,7 @@
 
     #bodyContent {
         position: relative;
-        top: 900px;
+        top: 950px;
         background-color: red;
         width: 100%;
         text-align: center;
@@ -332,6 +333,7 @@
             max-width: 100%;
             animation: rotateAround 16s infinite;
             animation-timing-function: linear;
+            user-select: none;
         }
 
         .item {
@@ -365,6 +367,113 @@
             opacity: 0.9;
         }
     }
+
+    #landingCrates {
+        margin: 0 auto;
+        z-index: 20;
+        display: flex;
+        gap: 0px;
+        user-select: none;
+        -webkit-user-drag: none;
+        -moz-user-select: none;
+
+        div {
+            width: 50%;
+            align-self: center;
+        }
+    }
+
+    /* Crate floating animation */
+    .crateContainer {
+        width: 50%;
+        height: fit-content;
+        align-self: center;
+        position: relative;
+    }
+
+    .crate {
+        width: 400px;
+        animation: crateFloat 3s ease-in-out infinite;
+        will-change: transform;
+    }
+
+    .crate img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .crateIkea {
+        transform: translateY(40px) translateX(-30%);
+    }
+
+    .crateHoodies {
+        transform: translateY(-180px) translateX(59%) scale(0.88) rotate(-3deg);
+        animation-delay: -1.5s;
+    }
+
+    @keyframes crateFloat {
+        0%, 100% {
+            translate: 0 0;
+        }
+
+        50% {
+            translate: 0 -10px;
+        }
+    }
+    @media screen and (max-width: 750px) {
+        .crateContainer {
+            width: 100% !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .crate {
+            width: 400px;
+            max-width: 100%;
+        }
+
+        .crateIkea {
+            transform: translateY(40px) translateX(-75px);
+        }
+
+        .crateHoodies {
+            transform: translateY(-180px) translateX(90px) scale(0.88) rotate(-3deg);
+        }
+    }
+
+    #ideas {
+        display: flex;
+        flex-direction: row;
+    }
+    #ideaSide {
+        margin-left: 100px;
+        margin-top: 100px;
+        div {
+            margin: 10px;
+            border: 4px solid white;
+            background-color: rgba(128, 128, 128, 0.227);
+            border-radius: 20px;
+            padding: 20px;
+            width: fit-content;
+            font-family: Cal Sans, Host Grotesk;
+        }
+    }
+    @media screen and (max-width: 750px) {
+        #ideaSide {
+            margin-left: 0;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            div {
+                width: 85%;
+                display: block;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+        }
+    }
 </style>
 
 <div id="titleBox" style:top={180-(scrollY/20)}px>
@@ -382,9 +491,9 @@
     />
 </div>
 
-<h2 id="desc" style:opacity={1-(scrollY)/600}>
+<p id="desc" style:opacity={1-(scrollY)/600}>
     Build <span>cute projects</span> get <span>cute prizes</span>
-</h2>
+</p>
 
 <!-- Shark and eyes share one animated container -->
 <div id="sharkContainer">
@@ -406,7 +515,7 @@
     />
 </div>
 
-<div id="login" style:display={scrollY > 900 ? "none" : "block"}>
+<div id="login" style:display={(scrollY > 900 || screenWidth < 750) ? "none" : "block"}>
     <Login />
 </div>
 
@@ -485,19 +594,18 @@
     />
 
     {#if screenWidth > 750}
-        <div aria-hidden="true" style:height=200px></div>
+        <div aria-hidden="true" style:height=250px></div>
     {:else}
         <div aria-hidden="true" style:height=80px></div>
     {/if}
 
-    <h3
+    <h2
         style:font-size=50px
-        style:font-family="Playwrite DK Loopet, Cal Sans, Montserrat"
         style:font-weight=900
         style:color="rgb(237, 233, 178)"
     >
         about
-    </h3>
+    </h2>
 
     <p>
         Build websites, games, and art about something toy-themed or cute.
@@ -505,8 +613,8 @@
     </p>
 
     <div style="display: block; width: 90%; height: 300px; margin: {screenWidth > 750 ? '100px' : '80px'} auto 100px auto;">
-        <div id="prizeCarousel" aria-label="Collection of merch items and prizes">
-            <img alt="" src="/images/shapes/shape3.webp" />
+        <div id="prizeCarousel" aria-hidden="true">
+            <img alt="" src="/images/shapes/shape3.webp" style:user-select="none"/>
 
             {#each displayList as itemName}
                 {@const isMerch = itemName.includes("shirt") || itemName.includes("hoodie") || itemName.includes("sweatshirt")}
@@ -519,6 +627,7 @@
                     style:pointer-events={currDisplay === itemName ? "auto" : "none"}
                     style:transform="translate(-50%, -50%) rotate({isMerch ? 5 : 0}deg)"
                     aria-hidden={currDisplay === itemName ? "false" : "true"}
+                    translate="no"
                 />
             {/each}
         </div>
@@ -526,6 +635,54 @@
 
     <p>
         Earn tokens from each project you build and ship. Use those tokens to
-        purchase <strong>crates</strong>, which give you random prizes in its category.
+        purchase <strong>crates</strong>, which unlock random prizes from its category.
     </p>
+
+    <div
+        style:margin-top=-30px
+        style:margin-bottom=-20px;
+        id="landingCrates"
+        aria-label="A token, alongside examples of prize crates"
+        style:flex-direction={screenWidth > 750 ? "row" : "column"}
+    >
+        <div style:margin-top={screenWidth > 750 ? 0 : 50}px>
+            <img
+                src="/images/tokenArrow{screenWidth > 750 ? "" : "_mobile"}.webp"
+                style:max-height=400px
+                style:animation="pulseShape 3s infinite ease-in-out"
+                id="landingCrates"
+                alt=""
+                translate="no"
+            />
+        </div>
+
+        <div class="crateContainer">
+            <div class="crate crateIkea">
+                <img
+                    src="/images/crates/ikea.webp"
+                    alt=""
+                />
+            </div>
+
+            <div class="crate crateHoodies">
+                <img
+                    src="/images/crates/hoodies.webp"
+                    alt=""
+                />
+            </div>
+        </div>
+    </div>
+    <h3 style:font-size=35px style:font-weight=900 style:margin-top=-150px;>what can I build?</h3>
+    <p>Any software project, from games to websites, that meets the theme! The best projects also typically include original art.</p>
+    <div id="ideas">
+         <div style:width={screenWidth > 750 ? 50 : 100}% id="ideaSide">
+            <div>A lofi-app with cute scenery and art</div>
+            <div>A game where an angry goose chases you</div>
+            <div>A website about all the plushies you own</div>
+            <div>A virtual pet</div>
+         </div>
+         <div style:display={screenWidth > 750 ? "block" : "none"} style="width: 50%">
+            <img src="/images/aftonsparv.webp" alt="Alien plushie" />
+         </div>
+    </div>
 </div>
